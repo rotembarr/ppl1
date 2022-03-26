@@ -1,0 +1,23 @@
+const t1: WordTree = {
+root: "Hello",
+children: [
+{
+root: "students",
+children: [
+{
+root: "how",
+children: []
+}
+]
+},
+{
+4
+root: "are",
+children: []
+},
+{
+root: "you?",
+children: []
+},
+]
+}
