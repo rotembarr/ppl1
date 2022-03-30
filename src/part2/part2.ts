@@ -72,3 +72,4 @@ const t1: WordTree = {
 // console.log(countLetters("RotEm and MOR are the beSSt"))
 // console.log(isPaired("{]}"))
 // console.log(treeToSentence(t1))
+// console.log(x is number);
