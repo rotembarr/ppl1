@@ -10,11 +10,25 @@ export const countLetters: (s: string) => {} = R.pipe(
 );
 
 
+const popParen: (stack: string[], openParen: string, closeParen: string) => string[] = 
+    (stack: string[], openParen: string, closeParen: string) => 
+        R.isEmpty(stack) ? [closeParen] : 
+            R.head(stack) === openParen ? R.tail(stack) : R.prepend(closeParen, stack);
+    
+const manageStack: (stack: string[], c: string) => string[] = 
+    (stack: string[], c: string) => 
+        c==="(" || c==="{" || c==="["   ? R.prepend(c, stack) :
+        c===")"                         ? popParen(stack, "(", c) :
+        c==="}"                         ? popParen(stack, "{", c) :
+        c==="]"                         ? popParen(stack, "[", c) :
+        stack
+        
 /* Question 2 */
 export const isPaired: (s: string) => boolean = R.pipe(
     (s: string) => stringToArray(s),
     (letters: string[]) => R.filter(s => s==="(" || s===")" || s==="[" || s==="]" || s==="{" || s==="}", letters),
-    (parentheses: string[]) => (parentheses.length % 2 == 1) ? false : R.equals(R.slice(0,parentheses.length/2),R.slice(parentheses.length/2 + 1, parentheses.length))
+    (parentheses: string[]) => R.reduce((acc: string[], elem: string) => manageStack(acc, elem), [], parentheses),
+    (stack: string[]) => R.isEmpty(stack)
 );
 
 /* Question 3 */
@@ -56,5 +70,5 @@ const t1: WordTree = {
 
 
 // console.log(countLetters("RotEm and MOR are the beSSt"))
-// console.log(isPaired("[a]"))
-console.log(treeToSentence(t1))
+// console.log(isPaired("{]}"))
+// console.log(treeToSentence(t1))
