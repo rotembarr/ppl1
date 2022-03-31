@@ -10,10 +10,10 @@ export const countLetters: (s: string) => {} = R.pipe(
 );
 
 
-const popParen: (stack: string[], openParen: string, closeParen: string) => string[] = 
-    (stack: string[], openParen: string, closeParen: string) => 
-        R.isEmpty(stack) ? [closeParen] : 
-            R.head(stack) === openParen ? R.tail(stack) : R.prepend(closeParen, stack);
+const popParen: (stack: string[], exp: string, ins: string) => string[] = 
+    (stack: string[], exp: string, ins: string) => 
+        R.isEmpty(stack) ? [ins] : 
+            R.head(stack) === exp ? R.tail(stack) : R.prepend(ins, stack);
     
 const manageStack: (stack: string[], c: string) => string[] = 
     (stack: string[], c: string) => 
@@ -32,44 +32,10 @@ export const isPaired: (s: string) => boolean = R.pipe(
 );
 
 /* Question 3 */
-interface WordTree {
+export interface WordTree {
     root: string;
     children: WordTree[];
 }
 
-export const treeToSentence = (t: WordTree): string => t.children == [] ? t.root + ' ' : t.root + ' ' + R.join('')(R.map(e => treeToSentence(e), t.children));
-
-
-const t1: WordTree = {
-    root: "Hello",
-    children: [
-        {
-            root: "students",
-            children: [
-                {
-                    root: "how",
-                    children: [
-                        {
-                            root: "how",
-                            children: []
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            root: "are",
-            children: []
-        },
-        {
-            root: "you?",
-            children: []
-        }
-    ]
-}
-
-
-// console.log(countLetters("RotEm and MOR are the beSSt"))
-// console.log(isPaired("{]}"))
-// console.log(treeToSentence(t1))
-// console.log(x is number);
+export const treeToSentenceRec = (t: WordTree): string => t.children == [] ? t.root + ' ' : t.root + ' ' + R.join('')(R.map(e => treeToSentenceRec(e), t.children));
+export const treeToSentence = (t: WordTree): string => (treeToSentenceRec(t)).slice(0,-1);

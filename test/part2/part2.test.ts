@@ -16,13 +16,20 @@ describe("Assignment 1 Part 2", () => {
             expect(isPaired("This is ([some]) {text}.")).toBe(true);
             expect(isPaired("No parens, no problems.")).toBe(true);
             expect(isPaired("")).toBe(true);
+            expect(isPaired("{(){}}")).toBe(true);
         });
-
+        
         it("returns false when the parens are not paired", () => {
             expect(isPaired("(]")).toBe(false);
             expect(isPaired("This is ]some[ }text{")).toBe(false);
             expect(isPaired("(")).toBe(false);
+            expect(isPaired("}")).toBe(false);
             expect(isPaired(")(")).toBe(false);
+            expect(isPaired("{[}]")).toBe(false);
+            expect(isPaired("{}}")).toBe(false);
+            expect(isPaired("{]")).toBe(false);
+            expect(isPaired("]{}")).toBe(false);
+            expect(isPaired("({)")).toBe(false);
         });
     });
 
@@ -30,10 +37,39 @@ describe("Assignment 1 Part 2", () => {
         const t1: WordTree = {root:"hello", children:[{root: "world", children:[]}]}
         const t2: WordTree = {root:"hello", children:[{root: "there", children:[]}, {root:"!", children:[]}]}
         const t3: WordTree = {root:"hello", children:[{root: "there", children:[{root:"!", children:[]}]}]}
+        const t4: WordTree = {
+            root: "Hello",
+            children: [
+                {
+                    root: "students",
+                    children: [
+                        {
+                            root: "how",
+                            children: [
+                                {
+                                    root: "how2",
+                                    children: []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    root: "are",
+                    children: []
+                },
+                {
+                    root: "you?",
+                    children: []
+                }
+            ]
+        }
+        
         it("Represents a tree as a sentence", () => {
             expect(treeToSentence(t1)).toBe("hello world");
             expect(treeToSentence(t2)).toBe("hello there !");
             expect(treeToSentence(t3)).toBe("hello there !");
+            expect(treeToSentence(t4)).toBe("Hello students how how2 are you?");
 
         });
     });
