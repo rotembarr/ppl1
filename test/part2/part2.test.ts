@@ -7,6 +7,7 @@ describe("Assignment 1 Part 2", () => {
             expect(countLetters("AaaBbbb")).toEqual({"a": 3, "b":4});
             expect(countLetters("ABbbaab")).toEqual({"a": 3, "b":4});
             expect(countLetters("I am robot")).toEqual({"i": 1, "a": 1, "m": 1, "r":1, "o":2, "b":1, "t":1});
+            expect(countLetters("I am !!!^^")).toEqual({"i": 1, "a": 1, "m": 1, "!":3, "^":2});
         });
     });
 
@@ -17,6 +18,7 @@ describe("Assignment 1 Part 2", () => {
             expect(isPaired("No parens, no problems.")).toBe(true);
             expect(isPaired("")).toBe(true);
             expect(isPaired("{(){}}")).toBe(true);
+            expect(isPaired("{}{}{}{}{}{}{}")).toBe(true);
         });
         
         it("returns false when the parens are not paired", () => {
@@ -30,6 +32,7 @@ describe("Assignment 1 Part 2", () => {
             expect(isPaired("{]")).toBe(false);
             expect(isPaired("]{}")).toBe(false);
             expect(isPaired("({)")).toBe(false);
+            expect(isPaired("}(){")).toBe(false);
         });
     });
 
