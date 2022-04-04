@@ -12,6 +12,11 @@ describe("Find", () => {
             const result = F.findResult(x => x.length > 3, ["raccoon", "ostrich", "slug"]);
             expect(result).toSatisfy(R.isOk);
         });
+
+        it("returns an Ok when an element in the middle was found", () => {
+            const result = F.findResult(x => x.length > 3, ["aa", "ostrich", "slug"]);
+            expect(result).toSatisfy(R.isOk);
+        });
     });
 
     describe("returnSquaredIfFoundEven", () => {

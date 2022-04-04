@@ -1,3 +1,4 @@
+import * as R from "ramda";
 import { Result, makeFailure, makeOk, bind, either } from "../lib/result";
 
 /* Library code */
@@ -9,10 +10,8 @@ const findOrThrow = <T>(pred: (x: T) => boolean, a: T[]): T => {
 }
 
 export const findResult = <T>(pred: (x: T) => boolean, a: T[]): Result<T> => {
-    for (let i = 0; i < a.length; i++) {
-        if (pred(a[i])) return makeOk<T>(a[i]);
-    }
-    return makeFailure<T>("No element found.");
+    const aFilt: T[] = R.filter(pred, a);
+    return R.isEmpty(aFilt) ? makeFailure<T>("No element found.") : makeOk<T>(aFilt[0]);
 };
 
 /* Client code */
